@@ -1,13 +1,13 @@
 /// Author: [Jakob Germann, Software Engineer]
 /// Time: [2023-2024]
 /// @name linkedlist
+/// @{
 
 #ifndef LINKEDLIST_H_
 #define LINKEDLIST_H_
 
 // From C++ STL
 #include <iostream>
-#include <array>
 
 // From libstructures
 #include <node.h>
@@ -39,7 +39,7 @@ namespace libdsa
             void print();
 
         private:
-            libdsa::libstructures::Node<T> *_head;
+            libdsa::libstructures::Node<T> *_head = nullptr;
             size_t _size = 0;
         };
 
@@ -56,6 +56,7 @@ namespace libdsa
             }
             else
             {
+                
                 libdsa::libstructures::Node<T> *current = _head;
 
                 // Create the new node
@@ -102,6 +103,9 @@ namespace libdsa
         {
             return _size;
         }
-    }
-}
+    } // libstructures
+} // libdsa
+
 #endif // LINKEDLIST_H_
+
+/// @}

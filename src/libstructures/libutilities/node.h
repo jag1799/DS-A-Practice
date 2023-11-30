@@ -1,3 +1,11 @@
+/// @author [Jakob Germann, Software Engineer]
+/// @date [2023]
+/// @file node
+/// @{
+
+#ifndef NODE_H_
+#define NODE_H_
+
 namespace libdsa
 {
     namespace libstructures
@@ -9,7 +17,7 @@ namespace libdsa
             Node *_next;
             Node *_prev;
             T _datum;
-        };
+        }; // Node
 
         template <typename T>
         libdsa::libstructures::Node<T>::Node(T datum)
@@ -18,5 +26,9 @@ namespace libdsa
             // Intentionally empty constructor.
         }
 
-    }
-}
+    } // libstructures
+} // libdsa
+
+#endif // NODE_H_
+
+/// @}
