@@ -28,6 +28,15 @@ namespace libdsa
             /// @param datum Data instance to be appended.
             void append(T datum);
 
+            /// @brief Removes a data instance specified by the index.
+            /// @param idx Index of data instance to be removed.
+            void remove(size_t idx);
+            
+            /// @brief Inserts a data instance specified by the index.
+            /// @param datum Data instance to be inserted.
+            /// @param idx Position to insert the data instance.
+            void insert(T datum, size_t idx);
+
             /// @brief Returns the underlying head of the list.
             libdsa::libstructures::Node<T> *getHead();
 
@@ -102,6 +111,67 @@ namespace libdsa
         size_t libdsa::libstructures::LinkedList<T>::getSize()
         {
             return _size;
+        }
+
+        template <typename T>
+        void libdsa::libstructures::LinkedList<T>::remove(size_t idx)
+        {
+            libdsa::libstructures::Node<T> *current = _head;
+            size_t i = 0;
+
+            // Check that the index is within bounds.
+            if (i > _size)
+            {
+                std::cout << "Index out of bounds." << std::endl;
+                return;
+            }
+
+            while(i != idx)
+            {
+                current = current->_next;
+                ++i;
+            }
+
+            current->_prev->_next = current->_next;
+            current->_next->_prev = current->_prev;
+
+            current->_next = nullptr;
+            current->_prev = nullptr;
+
+            delete current;
+
+            --_size;
+        }
+
+        template <typename T>
+        void libdsa::libstructures::LinkedList<T>::insert(T datum, size_t idx)
+        {
+            if (idx >= _size)
+            {
+                std::cout << "Index out of bounds." << std::endl;
+                return;
+            }
+            else 
+            {
+                libdsa::libstructures::Node<T> *current = _head;
+                size_t i = 0;
+
+                while(i != idx)
+                {
+                    current = current->_next;
+                    ++i;
+                }
+
+                libdsa::libstructures::Node<T> *node = new libdsa::libstructures::Node<T>(datum);
+
+                node->_next = current;
+                node->_prev = current->_prev;
+
+                current->_prev->_next = node;
+                current->_prev = node;
+
+                ++_size;
+            }
         }
     } // libstructures
 } // libdsa
