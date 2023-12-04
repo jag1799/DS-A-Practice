@@ -10,6 +10,7 @@
 /// From libstructures
 #include <linkedlist.h>
 #include <stack.h>
+#include <bitarray.h>
 
 void testlibLinkedList(std::vector<uint8_t> &data)
 {
@@ -29,10 +30,21 @@ void testlibLinkedList(std::vector<uint8_t> &data)
     list.print();
 
     /// @test Confirm the remove() function works for an index argument.
-    list.remove(1);
+    size_t idx = 1;
+    list.remove(idx);
     list.print();
 
+    /// @test Confirm the insert function works as expected.
     list.insert('O', 1);
+    list.print();
+
+    /// @test Confirm the remove function works for a data instance argument.
+    uint8_t item = 'O';
+    list.remove(item);
+    list.print();
+
+    uint8_t item2 = '3';
+    list.remove(item2);
     list.print();
 }
 
@@ -55,6 +67,11 @@ void testlibStack(std::vector<uint8_t> &data)
     std::cout << std::endl;
 }
 
+void testlibBitArray()
+{
+    libdsa::libstructures::BitArrayHandler handler();
+}
+
 int main()
 {
     /// FIXME:  Need to fill the unused portion of the array up first. Seg faults otherwise.
@@ -62,4 +79,6 @@ int main()
 
     testlibLinkedList(data);
     testlibStack(data);
+
+    testlibBitArray();
 }

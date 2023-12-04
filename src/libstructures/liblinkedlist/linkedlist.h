@@ -1,5 +1,5 @@
-/// Author: [Jakob Germann, Software Engineer]
-/// Time: [2023-2024]
+/// @author [Jakob Germann, Software Engineer]
+/// @date [2023-2024]
 /// @name linkedlist
 /// @{
 
@@ -31,8 +31,12 @@ namespace libdsa
             /// @brief Removes a data instance specified by the index.
             /// @param idx Index of data instance to be removed.
             void remove(size_t idx);
+
+            /// @brief Removes a data instance specified by the data element.
+            /// @param datum Data instance to be removed.
+            void remove(T datum);
             
-            /// @brief Inserts a data instance specified by the index.
+            /// @brief Inserts a data instance in a position specified by the index.
             /// @param datum Data instance to be inserted.
             /// @param idx Position to insert the data instance.
             void insert(T datum, size_t idx);
@@ -141,6 +145,34 @@ namespace libdsa
             delete current;
 
             --_size;
+        }
+
+        template <typename T>
+        void libdsa::libstructures::LinkedList<T>::remove(T datum)
+        {
+            libdsa::libstructures::Node<T> *current = _head;
+
+            while(datum != current->_datum && current->_next != _head)
+            {
+                current = current->_next;
+            }
+
+            if(datum != current->_datum && current->_next == _head)
+            {
+                std::cout << "Data to remove does not exist." << std::endl;
+                return;
+            }
+            else
+            {
+                current->_prev->_next = current->_next;
+                current->_next->_prev = current->_prev;
+
+                current->_next = nullptr;
+                current->_prev = nullptr;
+
+                delete current;
+                --_size;
+            }
         }
 
         template <typename T>
