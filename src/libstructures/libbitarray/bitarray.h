@@ -13,6 +13,7 @@
 /// @c std::vector<bool> construct which triggers additional space optimization, if able.
 
 #include <vector>
+#include <iostream>
 
 namespace libdsa
 {
@@ -34,6 +35,11 @@ namespace libdsa
                 /// @return Result of ANDing the two vectors.
                 std::vector<bool> AND();
 
+                /// @brief Logical NOT of one of the two internal vectors.
+                /// @param set1 Boolean to NOT either set1 or not (instead NOTing set2).
+                /// @return A vector containing the result.
+                std::vector<bool> NOT(bool set1);
+
                 /// @brief Logical OR between both vectors and returns the new vectors.
                 /// @return A vector containing the result of ORing the two vectors.
                 std::vector<bool> OR();
@@ -42,13 +48,12 @@ namespace libdsa
                 /// @return A vector containing the result of XORing the two vectors.
                 std::vector<bool> XOR();
 
-                /// @brief Logical NOT of one of the two internal vectors.
-                /// @param set1 Boolean to NOT either set1 or not (instead NOTing set2).
-                /// @return A vector containing the result.
-                std::vector<bool> NOT(bool set1);
-
+                /// @brief Set the contents of set 1.
+                /// @param set The data to be used for set 1.
                 void setSet1(std::vector<bool> &set);
 
+                /// @brief Set the contents of set 2.
+                /// @param set The data to be used for set 2.
                 void setSet2(std::vector<bool> &set);
 
             private:
@@ -61,6 +66,25 @@ namespace libdsa
                                                                 _set1(set1), _set2(set2)
         {
             // Intentionally empty constructor
+        }
+
+        std::vector<bool> libdsa::libstructures::BitArrayHandler::AND()
+        {
+            std::vector<bool> result;
+            
+            if (_set1.size() != _set2.size())
+            {
+                std::cout << "Cannot compare Bit string of non-equal size." << std::endl;
+            }
+            else
+            {
+                for (size_t i = 0; i < _set1.size(); ++i)
+                {
+                    result.push_back(_set1[i] & _set2[i]);
+                }
+            }
+
+            return result;
         }
 
         void libdsa::libstructures::BitArrayHandler::setSet1(std::vector<bool> &set) { _set1 = set; }

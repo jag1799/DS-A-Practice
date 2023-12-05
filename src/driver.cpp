@@ -69,7 +69,22 @@ void testlibStack(std::vector<uint8_t> &data)
 
 void testlibBitArray()
 {
+    /// @test Default constructor.
     libdsa::libstructures::BitArrayHandler handler();
+    
+    std::vector<bool> s1 = {false, false, false, true};
+    std::vector<bool> s2 = {false, false, false, true};
+    /// @test Constructor
+    libdsa::libstructures::BitArrayHandler filledHandler(s1, s2);
+
+    auto result = filledHandler.AND();
+
+    for (size_t i = 0; i < s1.size(); ++i)
+    {
+        std::cout << result[i];
+    }
+
+    std::cout << std::endl;
 }
 
 int main()
