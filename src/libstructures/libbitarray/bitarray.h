@@ -14,6 +14,8 @@
 
 #include <vector>
 #include <iostream>
+#include <stdexcept>
+#include <string>
 
 namespace libdsa
 {
@@ -32,21 +34,26 @@ namespace libdsa
                 BitArrayHandler(std::vector<bool> &set1, std::vector<bool> &set2);
             
                 /// @brief Logical AND between both vectors and returns the new vectors.
-                /// @return Result of ANDing the two vectors.
+                /// @return A vector containing the intersection of the two vectors.
                 std::vector<bool> AND();
+
+                /// @brief Logical difference between the two vectors
+                /// @note Operation: difference[i] = set1[i] AND (NOT set2[i])
+                /// @return A vector containing the difference of the two internal sets.
+                std::vector<bool> difference();
+
+                std::vector<bool> getSet1();
+
+                std::vector<bool> getSet2();
 
                 /// @brief Logical NOT of one of the two internal vectors.
                 /// @param set1 Boolean to NOT either set1 or not (instead NOTing set2).
-                /// @return A vector containing the result.
-                std::vector<bool> NOT(bool set1);
+                /// @return A vector containing complement of the chosen vector.
+                void NOT(bool set1);
 
                 /// @brief Logical OR between both vectors and returns the new vectors.
                 /// @return A vector containing the result of ORing the two vectors.
                 std::vector<bool> OR();
-
-                /// @brief Logical XOR between both vectors and returns the result.
-                /// @return A vector containing the result of XORing the two vectors.
-                std::vector<bool> XOR();
 
                 /// @brief Set the contents of set 1.
                 /// @param set The data to be used for set 1.
@@ -56,43 +63,117 @@ namespace libdsa
                 /// @param set The data to be used for set 2.
                 void setSet2(std::vector<bool> &set);
 
+                /// @brief Logical XOR between both vectors and returns the result.
+                /// @return A vector containing the result of XORing the two vectors.
+                std::vector<bool> XOR();
+
             private:
                 std::vector<bool> _set1;
                 std::vector<bool> _set2;
+
+                size_t _size;
         };
 
         libdsa::libstructures::BitArrayHandler::BitArrayHandler(std::vector<bool> &set1, 
                                                                 std::vector<bool> &set2) : 
                                                                 _set1(set1), _set2(set2)
         {
-            // Intentionally empty constructor
+            if (_set1.size() != _set2.size())
+            {
+                throw std::runtime_error("Vectors must be the same size");
+            }
+            else
+            {
+                _size = _set1.size();
+            }
         }
 
         std::vector<bool> libdsa::libstructures::BitArrayHandler::AND()
         {
             std::vector<bool> result;
-            
-            if (_set1.size() != _set2.size())
+
+            for (size_t i = 0; i < _size; ++i)
             {
-                std::cout << "Cannot compare Bit string of non-equal size." << std::endl;
-            }
-            else
-            {
-                for (size_t i = 0; i < _set1.size(); ++i)
-                {
-                    result.push_back(_set1[i] & _set2[i]);
-                }
+                result.push_back(_set1[i] & _set2[i]);
             }
 
             return result;
         }
 
-        void libdsa::libstructures::BitArrayHandler::setSet1(std::vector<bool> &set) { _set1 = set; }
+        std::vector<bool> libdsa::libstructures::BitArrayHandler::getSet1()
+        {
+            return _set1;
+        }
 
-        void libdsa::libstructures::BitArrayHandler::setSet2(std::vector<bool> &set) { _set2 = set; }
+        std::vector<bool> libdsa::libstructures::BitArrayHandler::getSet2()
+        {
+            return _set2;
+        }
+
+        void libdsa::libstructures::BitArrayHandler::NOT(bool set1)
+        {
+            for (size_t i = 0; i < _size; ++i)
+            {
+                if (set1)
+                {
+                    _set1[i] = ~_set1[i];
+                }
+                else
+                {
+                    _set2[i] = ~_set2[i];
+                }
+            }
+        }
+
+        std::vector<bool> libdsa::libstructures::BitArrayHandler::OR()
+        {
+            std::vector<bool> result;
+            
+            for (size_t i = 0; i < _size; ++i)
+            {
+                result.push_back(_set1[i] | _set2[i]);
+            }
+            
+            return result;
+        }
+
+        void libdsa::libstructures::BitArrayHandler::setSet1(std::vector<bool> &set)
+        {
+            if (set.size() == _size)
+            {
+                _set1 = set; 
+            }
+            else
+            {
+                std::cout << "Incompatible Bitstream size." << std::endl;
+            }
+        }
+
+        void libdsa::libstructures::BitArrayHandler::setSet2(std::vector<bool> &set) 
+        {
+            if (set.size() == _size)
+            {
+                _set2 = set;
+            }
+            else
+            {
+                std::cout << "Incompatible Bitstream size." << std::endl;
+            }
+        }
+
+        std::vector<bool> libdsa::libstructures::BitArrayHandler::XOR()
+        {
+            std::vector<bool> result;
+
+            for (size_t i = 0; i < _size; ++i)
+            {
+                result.push_back(_set1[i] ^ _set2[i]);    
+            }
+
+            return result;
+        }
     }
 }
-
 
 #endif
 

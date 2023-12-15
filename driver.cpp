@@ -72,7 +72,7 @@ void testlibBitArray()
     /// @test Default constructor.
     libdsa::libstructures::BitArrayHandler handler();
     
-    std::vector<bool> s1 = {false, false, false, true};
+    std::vector<bool> s1 = {false, false, true};
     std::vector<bool> s2 = {false, false, false, true};
     /// @test Constructor
     libdsa::libstructures::BitArrayHandler filledHandler(s1, s2);
