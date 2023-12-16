@@ -67,27 +67,7 @@ void testlibStack(std::vector<uint8_t> &data)
     std::cout << std::endl;
 }
 
-void testlibBitArray()
-{
-    /// @test Default constructor.
-    libdsa::libstructures::BitArrayHandler handler();
-    
-    std::vector<bool> s1 = {false, false, true};
-    std::vector<bool> s2 = {false, false, false, true};
-    /// @test Constructor
-    libdsa::libstructures::BitArrayHandler filledHandler(s1, s2);
-
-    auto result = filledHandler.AND();
-
-    for (size_t i = 0; i < s1.size(); ++i)
-    {
-        std::cout << result[i];
-    }
-
-    std::cout << std::endl;
-}
-
-int main()
+int main(int argc, char* argv[])
 {
     /// FIXME:  Need to fill the unused portion of the array up first. Seg faults otherwise.
     std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
@@ -95,5 +75,6 @@ int main()
     testlibLinkedList(data);
     testlibStack(data);
 
-    testlibBitArray();
+    
+    
 }

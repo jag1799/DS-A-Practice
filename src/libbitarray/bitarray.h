@@ -40,7 +40,7 @@ namespace libdsa
                 /// @brief Logical difference between the two vectors
                 /// @note Operation: difference[i] = set1[i] AND (NOT set2[i])
                 /// @return A vector containing the difference of the two internal sets.
-                std::vector<bool> difference();
+                // std::vector<bool> difference();
 
                 std::vector<bool> getSet1();
 
