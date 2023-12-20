@@ -26,15 +26,16 @@ namespace libdsa
 
             /// @brief Appends a new data instance to the end of the list.
             /// @param datum Data instance to be appended.
-            void append(T datum);
+            template <typename K>
+            void append(K datum);
 
             /// @brief Removes a data instance specified by the index.
             /// @param idx Index of data instance to be removed.
-            void remove(size_t idx);
+            void removeByIndex(size_t idx);
 
             /// @brief Removes a data instance specified by the data element.
             /// @param datum Data instance to be removed.
-            void remove(T datum);
+            void removeByData(T datum);
             
             /// @brief Inserts a data instance in a position specified by the index.
             /// @param datum Data instance to be inserted.
@@ -52,39 +53,58 @@ namespace libdsa
             void print();
 
         private:
+
             libdsa::libstructures::Node<T> *_head = nullptr;
             size_t _size = 0;
         };
 
         template <typename T>
-        void libdsa::libstructures::LinkedList<T>::append(T datum)
-        {
+        template <typename K>
+        void libdsa::libstructures::LinkedList<T>::append(K datum)
+        {         
+            if constexpr (!std::is_same_v<T, K>)
+            {
+                throw std::runtime_error("Invalid type being appended.");
+            }
 
             // Fill the head node if it's empty. Otherwise append a new node.
             if (_head == nullptr)
             {
-                _head = new libdsa::libstructures::Node<T>(datum);
-                _head->_next = _head;
-                _head->_prev = _head;
+                try
+                {
+                    _head = new libdsa::libstructures::Node<T>(datum);
+                    _head->_next = _head;
+                    _head->_prev = _head;
+                }
+                catch(const std::exception& e)
+                {
+                    std::cerr << e.what() << '\n';
+                }
             }
             else
             {
-                
-                libdsa::libstructures::Node<T> *current = _head;
-
-                // Create the new node
-                libdsa::libstructures::Node<T> *newNode = new libdsa::libstructures::Node<T>(datum);
-
-                // Go to the end of the list
-                while (current->_next != _head)
+                try
                 {
-                    current = current->_next;
-                }
+                    libdsa::libstructures::Node<T> *current = _head;
 
-                // Append the new node and set the directional pointers.
-                current->_next = newNode;
-                newNode->_prev = current;
-                newNode->_next = _head;
+                    // Create the new node
+                    libdsa::libstructures::Node<T> *newNode = new libdsa::libstructures::Node<T>(datum);
+
+                    // Go to the end of the list
+                    while (current->_next != _head)
+                    {
+                        current = current->_next;
+                    }
+
+                    // Append the new node and set the directional pointers.
+                    current->_next = newNode;
+                    newNode->_prev = current;
+                    newNode->_next = _head;
+                }
+                catch(const std::exception& e)
+                {
+                    std::cerr << e.what() << '\n';
+                }
             }
 
             ++_size;
@@ -104,7 +124,7 @@ namespace libdsa
             size_t i = 0;
             while (i < _size)
             {
-                std::printf("%c", current->_datum);
+                std::cout << current->_datum << std::endl;
                 current = current->_next;
                 ++i;
             }
@@ -118,7 +138,7 @@ namespace libdsa
         }
 
         template <typename T>
-        void libdsa::libstructures::LinkedList<T>::remove(size_t idx)
+        void libdsa::libstructures::LinkedList<T>::removeByIndex(size_t idx)
         {
             libdsa::libstructures::Node<T> *current = _head;
             size_t i = 0;
@@ -129,26 +149,33 @@ namespace libdsa
                 std::cout << "Index out of bounds." << std::endl;
                 return;
             }
-
-            while(i != idx)
+            
+            try
             {
-                current = current->_next;
-                ++i;
+                while(i != idx)
+                {
+                    current = current->_next;
+                    ++i;
+                }
+
+                current->_prev->_next = current->_next;
+                current->_next->_prev = current->_prev;
+
+                current->_next = nullptr;
+                current->_prev = nullptr;
+
+                delete current;
+
+                --_size;
             }
-
-            current->_prev->_next = current->_next;
-            current->_next->_prev = current->_prev;
-
-            current->_next = nullptr;
-            current->_prev = nullptr;
-
-            delete current;
-
-            --_size;
+            catch(const std::exception& e)
+            {
+                std::cerr << e.what() << '\n';
+            }
         }
 
         template <typename T>
-        void libdsa::libstructures::LinkedList<T>::remove(T datum)
+        void libdsa::libstructures::LinkedList<T>::removeByData(T datum)
         {
             libdsa::libstructures::Node<T> *current = _head;
 

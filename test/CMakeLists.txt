@@ -13,6 +13,7 @@ add_library(GTest::GTest INTERFACE IMPORTED)
 target_link_libraries(GTest::GTest INTERFACE gtest_main)
 
 add_executable(libdsa_test 
+                    driver.cpp
                     bitarraytest/bitarraytest.cpp
                     linkedlisttest/linkedlisttest.cpp)
 
