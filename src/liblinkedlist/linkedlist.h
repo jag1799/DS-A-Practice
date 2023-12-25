@@ -35,12 +35,14 @@ namespace libdsa
 
             /// @brief Removes a data instance specified by the data element.
             /// @param datum Data instance to be removed.
-            void removeByData(T datum);
-            
+            template <typename K>
+            void removeByData(K datum);
+
             /// @brief Inserts a data instance in a position specified by the index.
             /// @param datum Data instance to be inserted.
             /// @param idx Position to insert the data instance.
-            void insert(T datum, size_t idx);
+            template <typename K>
+            void insert(K datum, size_t idx);
 
             /// @brief Returns the underlying head of the list.
             libdsa::libstructures::Node<T> *getHead();
@@ -52,20 +54,30 @@ namespace libdsa
             /// @brief Prints out the contents of the list to the console.
             void print();
 
-        private:
+            /// @brief Operator overload of '[]' to allow for index retrieval.
+            /// @param idx The index of the node to retrive.  Same indexing system as with std::array.
+            /// @return The underlying data contained within the node.
+            T operator[](const size_t idx) const;
 
+        private:
+            /// @brief Checks the type of the Linked List and type of the datum being inserted.
+            /// @throw runtime_error if types T and K are different.
+            template <typename K>
+            void checkType(K datum);
+
+            /// @brief Underlying head node of the Linked List.
             libdsa::libstructures::Node<T> *_head = nullptr;
+
+            /// @brief Number of nodes within the list.
             size_t _size = 0;
         };
 
         template <typename T>
         template <typename K>
         void libdsa::libstructures::LinkedList<T>::append(K datum)
-        {         
-            if constexpr (!std::is_same_v<T, K>)
-            {
-                throw std::runtime_error("Invalid type being appended.");
-            }
+        {
+            // Confirm the template types are the same.
+            checkType(datum);
 
             // Fill the head node if it's empty. Otherwise append a new node.
             if (_head == nullptr)
@@ -76,7 +88,7 @@ namespace libdsa
                     _head->_next = _head;
                     _head->_prev = _head;
                 }
-                catch(const std::exception& e)
+                catch (const std::exception &e)
                 {
                     std::cerr << e.what() << '\n';
                 }
@@ -101,7 +113,7 @@ namespace libdsa
                     newNode->_prev = current;
                     newNode->_next = _head;
                 }
-                catch(const std::exception& e)
+                catch (const std::exception &e)
                 {
                     std::cerr << e.what() << '\n';
                 }
@@ -141,21 +153,18 @@ namespace libdsa
         void libdsa::libstructures::LinkedList<T>::removeByIndex(size_t idx)
         {
             libdsa::libstructures::Node<T> *current = _head;
-            size_t i = 0;
 
             // Check that the index is within bounds.
-            if (i > _size)
+            if (idx > _size || idx < 0)
             {
-                std::cout << "Index out of bounds." << std::endl;
-                return;
+                throw std::runtime_error("Class LinkedList - Index request is out of bounds for current container.");
             }
-            
+
             try
             {
-                while(i != idx)
+                for (size_t i = 0; i < idx; ++i)
                 {
                     current = current->_next;
-                    ++i;
                 }
 
                 current->_prev->_next = current->_next;
@@ -168,23 +177,26 @@ namespace libdsa
 
                 --_size;
             }
-            catch(const std::exception& e)
+            catch (const std::exception &e)
             {
                 std::cerr << e.what() << '\n';
             }
         }
 
         template <typename T>
-        void libdsa::libstructures::LinkedList<T>::removeByData(T datum)
+        template <typename K>
+        void libdsa::libstructures::LinkedList<T>::removeByData(K datum)
         {
+            checkType(datum);
+
             libdsa::libstructures::Node<T> *current = _head;
 
-            while(datum != current->_datum && current->_next != _head)
+            while (datum != current->_datum && current->_next != _head)
             {
                 current = current->_next;
             }
 
-            if(datum != current->_datum && current->_next == _head)
+            if (datum != current->_datum && current->_next == _head)
             {
                 std::cout << "Data to remove does not exist." << std::endl;
                 return;
@@ -203,19 +215,21 @@ namespace libdsa
         }
 
         template <typename T>
-        void libdsa::libstructures::LinkedList<T>::insert(T datum, size_t idx)
+        template <typename K>
+        void libdsa::libstructures::LinkedList<T>::insert(K datum, size_t idx)
         {
-            if (idx >= _size)
+            checkType(datum);
+
+            if (idx >= _size || idx < 0)
             {
-                std::cout << "Index out of bounds." << std::endl;
-                return;
+                throw std::runtime_error("Class LinkedList - Index request is out of bounds for current container.");
             }
-            else 
+            else
             {
                 libdsa::libstructures::Node<T> *current = _head;
                 size_t i = 0;
 
-                while(i != idx)
+                while (i != idx)
                 {
                     current = current->_next;
                     ++i;
@@ -230,6 +244,34 @@ namespace libdsa
                 current->_prev = node;
 
                 ++_size;
+            }
+        }
+
+        template <typename T>
+        T libdsa::libstructures::LinkedList<T>::operator[](const size_t idx) const
+        {
+            Node<T> *current = this->_head;
+
+            if (this->_size <= idx || idx < 0)
+            {
+                throw std::runtime_error("Class LinkedList - Index requested is out of bounds for current container.");
+            }
+
+            for (size_t i = 0; i < idx; ++i)
+            {
+                current = current->_next;
+            }
+
+            return current->_datum;
+        }
+
+        template <typename T>
+        template <typename K>
+        void libdsa::libstructures::LinkedList<T>::checkType(K datum)
+        {
+            if constexpr (!std::is_same_v<T, K>)
+            {
+                throw std::runtime_error("Invalid type being appended.");
             }
         }
     } // libstructures

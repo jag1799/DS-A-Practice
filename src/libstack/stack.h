@@ -19,35 +19,39 @@ namespace libdsa
         template <typename T>
         class Stack
         {
-            public:
-                /// @brief Constructor
-                /// @param size Maximum size of the stack.
-                Stack(size_t size);
+        public:
+            /// @brief Constructor
+            /// @param size Maximum size of the stack.
+            Stack(size_t size);
 
-                /// @brief Destructor
-                ~Stack();
+            /// @brief Destructor
+            ~Stack();
 
-                /// @brief Pops an element off the top of the container.
-                /// @return The element popped off the stack top.
-                T pop();
+            /// @brief Pops an element off the top of the container.
+            /// @return The element popped off the stack top.
+            T pop();
 
-                /// @brief Pushes a new data element on the top of the stack.
-                /// @param element The element being pushed
-                void push(T element);
+            /// @brief Pushes a new data element on the top of the stack.
+            /// @param element The element being pushed
+            void push(T element);
 
-                /// @brief Checks if the stack is empty.
-                /// @return Whether the stack is empty.
-                bool empty();
+            /// @brief Checks if the stack is empty.
+            /// @return Whether the stack is empty.
+            bool empty();
 
-            private:
-                /// @brief User defined size of the stack.
-                size_t _size;
+            /// @brief Makes the number of elements on the stack publicly available.
+            /// @return The size of the stack.
+            size_t getSize();
 
-                /// @brief The underlying stack container.
-                T *_stack;
+        private:
+            /// @brief User defined maximum size of the stack.
+            size_t _size;
 
-                /// @brief Stack pointer.
-                int _sp;
+            /// @brief The underlying stack container.
+            T *_stack;
+
+            /// @brief Stack pointer.
+            int _sp;
         }; // Stack
 
         template <typename T>
@@ -97,7 +101,14 @@ namespace libdsa
             }
             return false;
         }
-        
+
+#ifdef TESTS
+        template <typename T>
+        size_t libdsa::libstructures::Stack<T>::getSize()
+        {
+            return this->_size;
+        }
+#endif
     } // libstructures
 } // libdsa
 

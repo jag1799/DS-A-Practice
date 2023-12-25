@@ -15,7 +15,8 @@ target_link_libraries(GTest::GTest INTERFACE gtest_main)
 add_executable(libdsa_test 
                     driver.cpp
                     bitarraytest/bitarraytest.cpp
-                    linkedlisttest/linkedlisttest.cpp)
+                    linkedlisttest/linkedlisttest.cpp
+                    stacktest/stacktest.cpp)
 
 target_link_libraries(libdsa_test
     PRIVATE
