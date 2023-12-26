@@ -1,4 +1,4 @@
-/// @author [Jakob Germann, Software Engineer]
+/// @author [Software Engineer]
 /// @date [2023]
 /// @file stack
 /// @{
@@ -8,6 +8,7 @@
 
 // From C++ STL
 #include <iostream>
+#include <utility>
 
 namespace libdsa
 {
@@ -72,8 +73,7 @@ namespace libdsa
         {
             if (this->_sp == -1)
             {
-                std::cout << "Stack is empty" << std::endl;
-                exit(0);
+                return 0;
             }
 
             return this->_stack[this->_sp--];
@@ -82,13 +82,10 @@ namespace libdsa
         template <typename T>
         void libdsa::libstructures::Stack<T>::push(T element)
         {
-            if (this->_sp <= static_cast<int>(this->_size))
+            // Subtract 1 from size to avoid off by one error
+            if (this->_sp < static_cast<int>(this->_size - 1))
             {
                 this->_stack[++this->_sp] = element;
-            }
-            else
-            {
-                std::cout << "Stack is full" << std::endl;
             }
         }
 

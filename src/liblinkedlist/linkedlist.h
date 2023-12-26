@@ -1,4 +1,4 @@
-/// @author [Jakob Germann, Software Engineer]
+/// @author [Software Engineer]
 /// @date [2023-2024]
 /// @name linkedlist
 /// @{

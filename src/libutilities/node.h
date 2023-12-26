@@ -1,4 +1,4 @@
-/// @author [Jakob Germann, Software Engineer]
+/// @author [Software Engineer]
 /// @date [2023]
 /// @file node
 /// @{
@@ -13,18 +13,16 @@ namespace libdsa
         template <typename T>
         struct Node
         {
-            Node(T datum);
             Node *_next;
             Node *_prev;
             T _datum;
-        }; // Node
 
-        template <typename T>
-        libdsa::libstructures::Node<T>::Node(T datum)
-            : _next(nullptr), _prev(nullptr), _datum(datum)
-        {
-            // Intentionally empty constructor.
-        }
+            Node(T datum)
+                : _next(nullptr), _prev(nullptr), _datum(datum)
+            {
+                // Intentionally empty constructor.
+            }
+        }; // Node
 
     } // libstructures
 } // libdsa

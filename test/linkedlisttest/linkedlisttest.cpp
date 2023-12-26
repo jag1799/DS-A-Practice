@@ -1,4 +1,4 @@
-/// @author [Jakob Germann, Software Engineer]
+/// @author [Software Engineer]
 /// @date [2023]
 /// @file linkedlisttest
 /// @brief Contains test functions for all member functions and use cases of the @c LinkedList class.
