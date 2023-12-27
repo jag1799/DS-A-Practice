@@ -8,7 +8,7 @@
 #define BITARRAY_H_
 
 /// @details A bit array is a space-optimized container for storing individual bits. Due to processor architecture
-/// being built to work with bytes specifically, operating on individual bits takes additional processing time and can
+/// being built to work with bytes rather than bits, operating on individual bits takes additional processing time and can
 /// vary between hardware systems.  One of the better C++ methods of implementing this data structure is to use the
 /// @c std::vector<bool> construct which triggers additional space optimization, if able.
 
@@ -40,7 +40,7 @@ namespace libdsa
             /// @brief Logical difference between the two vectors
             /// @note Operation: difference[i] = set1[i] AND (NOT set2[i])
             /// @return A vector containing the difference of the two internal sets.
-            // std::vector<bool> difference();
+            std::vector<bool> difference();
 
             std::vector<bool> getSet1();
 
@@ -87,6 +87,15 @@ namespace libdsa
             }
         }
 
+        std::vector<bool> libdsa::libstructures::BitArrayHandler::difference()
+        {
+            std::printf("In difference()\n");
+
+            std::vector<bool> test = {false, false, false};
+
+            return test;
+        }
+
         std::vector<bool> libdsa::libstructures::BitArrayHandler::AND()
         {
             std::vector<bool> result;
@@ -111,15 +120,15 @@ namespace libdsa
 
         void libdsa::libstructures::BitArrayHandler::NOT(bool set1)
         {
-            for (size_t i = 0; i < _size; ++i)
+            for (size_t i = 0; i < _set1.size(); ++i)
             {
                 if (set1)
                 {
-                    _set1[i] = ~_set1[i];
+                    _set1[i] = !_set1[i];
                 }
                 else
                 {
-                    _set2[i] = ~_set2[i];
+                    _set2[i] = !_set2[i];
                 }
             }
         }
