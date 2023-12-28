@@ -97,3 +97,22 @@ TEST(BitArray, testNOT_Operation)
     std::vector<bool> expected2 = {false, false, true};
     ASSERT_EQ(expected2, handler.getSet2());
 }
+
+TEST(BitArray, testDifferenceOperation)
+{
+    // Binary: 101
+    std::vector<bool> s1{true, false, true};
+    // Binary: 110
+    std::vector<bool> s2{true, true, false};
+
+    libdsa::libstructures::BitArrayHandler handler(s1, s2);
+
+    // Expected Binary result: 001
+    std::vector<bool> actual{false, false, true};
+
+    ASSERT_EQ(actual, handler.difference());
+
+    // Confirm the second bit array was reverted back to the original after
+    // being inverted in the difference operation.
+    ASSERT_EQ(s2, handler.getSet2());
+}

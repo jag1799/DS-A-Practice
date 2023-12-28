@@ -91,9 +91,20 @@ namespace libdsa
         {
             std::printf("In difference()\n");
 
-            std::vector<bool> test = {false, false, false};
+            std::vector<bool> result;
 
-            return test;
+            // Invert the bits of Set 2.
+            this->NOT(false);
+
+            for (size_t i = 0; i < _set1.size(); ++i)
+            {
+                result.push_back((_set1[i] & _set2[i]));
+            }
+
+            // Invert the bits of Set 2 back to original.
+            this->NOT(false);
+
+            return result;
         }
 
         std::vector<bool> libdsa::libstructures::BitArrayHandler::AND()
