@@ -15,8 +15,9 @@ namespace libdsa
     namespace libstructures
     {
         /// @brief Declaration and implementation of the @c Stack class.
+        ///
         /// @tparam T Templated parameter to allow the container to be used with
-        /// any data type.
+        ///           any data type.
         template <typename T>
         class Stack
         {

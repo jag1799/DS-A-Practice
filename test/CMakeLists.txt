@@ -18,6 +18,7 @@ add_executable(libdsa_test
                     driver.cpp
                     bitarraytest/bitarraytest.cpp
                     linkedlisttest/linkedlisttest.cpp
+                    ringbuffertest/ringbuffertest.cpp
                     stacktest/stacktest.cpp)
 
 target_link_libraries(libdsa_test

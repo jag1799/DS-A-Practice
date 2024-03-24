@@ -12,11 +12,11 @@
 // From libstructures
 #include <node.h>
 
-/// @brief Class implementation of @c LinkedList class.
 namespace libdsa
 {
     namespace libstructures
     {
+        /// @brief Class implementation of @c LinkedList class.
         template <typename T>
         class LinkedList
         {
