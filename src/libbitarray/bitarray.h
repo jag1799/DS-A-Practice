@@ -89,8 +89,6 @@ namespace libdsa
 
         std::vector<bool> libdsa::libstructures::BitArrayHandler::difference()
         {
-            std::printf("In difference()\n");
-
             std::vector<bool> result;
 
             // Invert the bits of Set 2.
