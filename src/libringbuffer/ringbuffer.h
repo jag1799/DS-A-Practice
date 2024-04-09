@@ -107,18 +107,12 @@ namespace libdsa
         template <typename T>
         T libdsa::libstructures::RingBuffer<T>::read()
         {
-            std::printf("ReadIndex: %d\n", this->_readIndex);
-            // If we reach the end of the buffer, loop back to the beginning.
-            if (this->_readIndex == this->_length)
+            // If we reach the end index of the buffer, loop back to the beginning.
+            if (this->_readIndex == this->_length - 1)
             {
                 uint16_t oldRead = this->_readIndex;
                 this->_readIndex = 0;
                 return this->_buffer[oldRead];
-            }
-            // If we reach the same index as the writeIndex, hold here until new data is written to the buffer.
-            else if (this->_readIndex == this->_writeIndex)
-            {
-                return this->_buffer[this->_readIndex];
             }
             // Simply read the current data.
             else
@@ -132,9 +126,8 @@ namespace libdsa
         void libdsa::libstructures::RingBuffer<T>::write(K data)
         {
             checkType(data);
-            std::printf("WriteIndex: %d\n", this->_writeIndex);
             // If we reach the end of the buffer, write to the final index and loop back to the beginning.
-            if (this->_writeIndex == this->_length)
+            if (this->_writeIndex == this->_length - 1)
             {
                 this->_buffer[this->_writeIndex] = data;
                 this->_writeIndex = 0;
