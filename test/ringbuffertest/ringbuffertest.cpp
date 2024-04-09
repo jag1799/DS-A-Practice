@@ -51,10 +51,14 @@ TEST(RingBuffer, testWriteReadValidDataBelowFullBuffer)
     }
 }
 
+/// @brief Completely fill the Ring Buffer and then read it, regardless of where the
+///        start index was.  Confirm that the read and write indices reach back to their
+///        starting index.
 TEST(RingBuffer, testWriteReadValidDataFullBuffer)
 {
     libdsa::libstructures::RingBuffer<uint8_t> ringBuffer(data.size());
     ASSERT_EQ(ringBuffer.size(), data.size());
+    size_t startIndex = ringBuffer.getReadIndex();
 
     for (size_t i = 0; i < data.size(); ++i)
     {
@@ -83,8 +87,13 @@ TEST(RingBuffer, testWriteReadValidDataFullBuffer)
             break;
         };
     }
+
+    ASSERT_EQ(startIndex, ringBuffer.getReadIndex());
+    ASSERT_EQ(startIndex, ringBuffer.getWriteIndex());
 }
 
+/// @brief Attempt to write a value that doesn't match the type
+///        of the Ring Buffer.
 TEST(RingBuffer, testWriteInvalidType)
 {
     libdsa::libstructures::RingBuffer<uint8_t> ringBuffer(data.size());
@@ -94,6 +103,7 @@ TEST(RingBuffer, testWriteInvalidType)
     ASSERT_THROW(ringBuffer.write(instance), std::runtime_error);
 }
 
+/// @brief Continue writing even after the Ring Buffer has been completely filled.
 TEST(RingBuffer, testOverwriteExistingData)
 {
     libdsa::libstructures::RingBuffer<uint8_t> ringBuffer(data.size());
@@ -111,6 +121,11 @@ TEST(RingBuffer, testOverwriteExistingData)
     ASSERT_EQ('A', ringBuffer.read());
 }
 
+/// @brief Confirm that you can read past the write index like a normal ring buffer.
+///
+/// @note While you can read past the write buffer, there are implementations in processors
+///       that prevent this to avoid reading garbage or repeat values.  There is also no reason
+///       why you would want to do this, but the theory of ring buffers doesn't say this isn't allowed.
 TEST(RingBuffer, testAttemptedReadPastWriteIndex)
 {
     libdsa::libstructures::RingBuffer<uint8_t> ringBuffer(data.size());
