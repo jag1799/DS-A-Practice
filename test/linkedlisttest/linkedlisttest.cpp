@@ -84,7 +84,7 @@ TEST(LinkedList, testOutOfBoundsIndexRetrieval)
 }
 
 /// @brief Test that the container class removes the correct data instance given an index.
-TEST(LinkedList, testValidRemoveByIdx)
+TEST(LinkedList, testValidRemoveByIndex)
 {
     std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
     libdsa::libstructures::LinkedList<uint8_t> list = setup(data);
@@ -96,7 +96,7 @@ TEST(LinkedList, testValidRemoveByIdx)
 }
 
 /// @brief Test that the container class correctly handles an invalid removal given a bad index value.
-TEST(LinkedList, testInvalidRemoveByIndx)
+TEST(LinkedList, testInvalidRemoveByIndex)
 {
     std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
     libdsa::libstructures::LinkedList<uint8_t> list = setup(data);

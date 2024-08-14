@@ -16,7 +16,7 @@ namespace libdsa
 {
     namespace libstructures
     {
-        /// @brief Class implementation of @c LinkedList class.
+        /// @brief Class implementation of a @c LinkedList class.
         template <typename T>
         class LinkedList
         {
@@ -250,12 +250,12 @@ namespace libdsa
         template <typename T>
         T libdsa::libstructures::LinkedList<T>::operator[](const size_t idx) const
         {
-            Node<T> *current = this->_head;
-
             if (this->_size <= idx || idx < 0)
             {
                 throw std::runtime_error("Class LinkedList - Index requested is out of bounds for current container.");
             }
+            
+            Node<T> *current = this->_head;
 
             for (size_t i = 0; i < idx; ++i)
             {

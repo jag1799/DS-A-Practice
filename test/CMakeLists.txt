@@ -1,3 +1,4 @@
+# AUTHOR: Jakob Germann
 # LAST EDIT DATE: 12/25/2023
 
 include(FetchContent)
