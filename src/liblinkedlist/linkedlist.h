@@ -97,21 +97,21 @@ namespace libdsa
             {
                 try
                 {
-                    libdsa::libstructures::Node<T> *current = _head;
+                    // Get the last node of the linked list
+                    libdsa::libstructures::Node<T> *lastNode = _head->_prev;
 
                     // Create the new node
                     libdsa::libstructures::Node<T> *newNode = new libdsa::libstructures::Node<T>(datum);
 
-                    // Go to the end of the list
-                    while (current->_next != _head)
-                    {
-                        current = current->_next;
-                    }
-
-                    // Append the new node and set the directional pointers.
-                    current->_next = newNode;
-                    newNode->_prev = current;
+                    // Append the new node to the end of the list.
                     newNode->_next = _head;
+                    newNode->_prev = lastNode;
+
+                    // Connect the old last node to the new last node.
+                    lastNode->_next = newNode;
+
+                    // Connect the head previous ptr to the new last node.
+                    _head->_prev = newNode;
                 }
                 catch (const std::exception &e)
                 {
