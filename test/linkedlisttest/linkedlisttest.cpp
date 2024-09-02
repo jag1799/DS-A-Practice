@@ -9,6 +9,9 @@
 // From Gtest
 #include <gtest/gtest.h>
 
+// From C++ STL
+#include <random>
+
 /// @brief Reusable setup function for a LinkedList tests.
 /// @param data Container of data to build the linked list with.
 /// @return A fully built Linked List instance containing data.
@@ -164,4 +167,75 @@ TEST(LinkedList, testInvalidTypeInsert)
     int datum = 32;
 
     ASSERT_THROW(list.insert(datum, 3), std::runtime_error);
+}
+
+TEST(LinkedList, testFindInvalidType)
+{
+    std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
+    libdsa::libstructures::LinkedList<uint8_t> list = setup(data);
+
+    int datum = 32;
+
+    ASSERT_THROW(list.exists(datum), std::runtime_error);
+}
+
+TEST(LinkedList, testFindValidTypeMiddle)
+{
+    std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
+    libdsa::libstructures::LinkedList<uint8_t> list = setup(data);
+
+    uint8_t datum = 'D';
+
+    ASSERT_TRUE(list.exists(datum));
+}
+
+TEST(LinkedList, testFindValidTypeStart)
+{
+    std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
+    libdsa::libstructures::LinkedList<uint8_t> list = setup(data);
+
+    uint8_t datum = 'C';
+
+    ASSERT_TRUE(list.exists(datum));
+}
+
+TEST(LinkedList, testFindValidTypeEnd)
+{
+    std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
+    libdsa::libstructures::LinkedList<uint8_t> list = setup(data);
+
+    uint8_t datum = 'E';
+
+    ASSERT_TRUE(list.exists(datum));
+}
+
+TEST(LinkedList, testFindValidTypeFailure)
+{
+    std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
+    libdsa::libstructures::LinkedList<uint8_t> list = setup(data);
+
+    uint8_t datum = 'K';
+
+    ASSERT_FALSE(list.exists(datum));
+}
+
+TEST(LinkedList, testFindValidTypeSuccessWithLargeList)
+{
+    libdsa::libstructures::LinkedList<int> list;
+    std::default_random_engine generator;
+    std::uniform_int_distribution<int> distribution(1, 100);
+    int number = 0;
+    for (size_t i = 0; i < 10000; ++i)
+    {
+        number = distribution(generator);
+        list.append(number);
+    }
+
+    ASSERT_EQ(10000, list.getSize());
+
+    list.insert(110, 8000);
+
+    ASSERT_EQ(10001, list.getSize());
+
+    ASSERT_TRUE(list.exists(110));
 }

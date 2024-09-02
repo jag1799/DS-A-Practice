@@ -25,20 +25,35 @@ namespace libdsa
             LinkedList() = default;
 
             /// @brief Appends a new data instance to the end of the list.
+            ///
             /// @param datum Data instance to be appended.
             template <typename K>
             void append(K datum);
 
+            /// @brief Checks if the data instance exists in the Linked List
+            ///
+            /// @param item Data instance to check for.
+            ///
+            /// @note This method uses a Dual-End search.  Two pointers search starting from
+            ///       each end.
+            ///
+            /// @return True if the item is found, false otherwise.
+            template <typename K>
+            bool exists(const K item);
+
             /// @brief Removes a data instance specified by the index.
+            ///
             /// @param idx Index of data instance to be removed.
             void removeByIndex(size_t idx);
 
             /// @brief Removes a data instance specified by the data element.
+            ///
             /// @param datum Data instance to be removed.
             template <typename K>
             void removeByData(K datum);
 
             /// @brief Inserts a data instance in a position specified by the index.
+            ///
             /// @param datum Data instance to be inserted.
             /// @param idx Position to insert the data instance.
             template <typename K>
@@ -48,6 +63,7 @@ namespace libdsa
             libdsa::libstructures::Node<T> *getHead();
 
             /// @brief Get the size of the Linked List.
+            ///
             /// @return The size of the Linked List.
             size_t getSize();
 
@@ -55,12 +71,15 @@ namespace libdsa
             void print();
 
             /// @brief Operator overload of '[]' to allow for index retrieval.
+            ///
             /// @param idx The index of the node to retrive.  Same indexing system as with std::array.
+            ///
             /// @return The underlying data contained within the node.
             T operator[](const size_t idx) const;
 
         private:
             /// @brief Checks the type of the Linked List and type of the datum being inserted.
+            ///
             /// @throw runtime_error if types T and K are different.
             template <typename K>
             void checkType(K datum);
@@ -267,11 +286,47 @@ namespace libdsa
 
         template <typename T>
         template <typename K>
+        bool libdsa::libstructures::LinkedList<T>::exists(const K item)
+        {
+            checkType(item);
+
+            // Declare forward and backward search pointers.
+            Node<T> *forward = this->_head;
+            size_t forwardIdx = 0;
+            Node<T> *backward = this->_head;
+            size_t backwardIdx = this->getSize();
+
+            bool found = false;
+
+            // Start the search from both ends.  If the indexes of both pointers cross over each other,
+            // the element does not exist in the list, so break.
+            while (found == false)
+            {
+                if (forward->_datum == item || backward->_datum == item)
+                {
+                    found = true;
+                }
+                else if (forwardIdx > backwardIdx)
+                {
+                    break;
+                }
+                
+                ++forwardIdx;
+                --backwardIdx;
+                forward = forward->_next;
+                backward = backward->_prev;
+            }
+
+            return found;
+        }
+
+        template <typename T>
+        template <typename K>
         void libdsa::libstructures::LinkedList<T>::checkType(K datum)
         {
             if constexpr (!std::is_same_v<T, K>)
             {
-                throw std::runtime_error("Invalid type being appended.");
+                throw std::runtime_error("Invalid type passed into Linked List.");
             }
         }
     } // libstructures
