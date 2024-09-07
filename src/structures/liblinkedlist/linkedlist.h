@@ -9,6 +9,9 @@
 // From C++ STL
 #include <iostream>
 
+// From common
+#include <logger.h>
+
 // From structures
 #include <node.h>
 
@@ -22,7 +25,9 @@ namespace libdsa
         {
         public:
             /// @brief Default constructor.
-            LinkedList() = default;
+            // LinkedList() = default;
+
+            LinkedList();
 
             /// @brief Appends a new data instance to the end of the list.
             ///
@@ -91,7 +96,15 @@ namespace libdsa
 
             /// @brief Number of nodes within the list.
             size_t _size = 0;
+
+            libdsa::common::Logger *_logger;
         };
+
+        template <typename T>
+        libdsa::structures::LinkedList<T>::LinkedList()
+        {
+            this->_logger = new libdsa::common::Logger();
+        }
 
         template <typename T>
         template <typename K>
@@ -111,6 +124,7 @@ namespace libdsa
                 }
                 catch (const std::exception &e)
                 {
+                    this->_logger->log("Failure to set data to head", libdsa::common::LogLevel::LOG_CRITICAL);
                     std::cerr << e.what() << '\n';
                 }
             }
@@ -136,6 +150,7 @@ namespace libdsa
                 }
                 catch (const std::exception &e)
                 {
+                    this->_logger->log("Failure in appending a new node past head.", libdsa::common::LogLevel::LOG_CRITICAL);
                     std::cerr << e.what() << '\n';
                 }
             }
@@ -219,7 +234,7 @@ namespace libdsa
 
             if (datum != current->_datum && current->_next == _head)
             {
-                std::cout << "Data to remove does not exist." << std::endl;
+                this->_logger->log("Data to remove does not exist\n", libdsa::common::LogLevel::LOG_WARNING);
                 return;
             }
             else

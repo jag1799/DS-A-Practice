@@ -2,4 +2,5 @@
 # DATE: [2023,2024]
 
 target_include_directories(libdsa INTERFACE
+                            liblogger
                             libutilities)
