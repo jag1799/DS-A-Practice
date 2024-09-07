@@ -19,7 +19,7 @@
 
 namespace libdsa
 {
-    namespace libstructures
+    namespace structures
     {
         /// @brief Handles and performs operations on two user defined bit arrays.
         class BitArrayHandler
@@ -74,7 +74,7 @@ namespace libdsa
             size_t _size;
         };
 
-        libdsa::libstructures::BitArrayHandler::BitArrayHandler(std::vector<bool> &set1,
+        libdsa::structures::BitArrayHandler::BitArrayHandler(std::vector<bool> &set1,
                                                                 std::vector<bool> &set2) : _set1(set1), _set2(set2)
         {
             if (_set1.size() != _set2.size())
@@ -87,7 +87,7 @@ namespace libdsa
             }
         }
 
-        std::vector<bool> libdsa::libstructures::BitArrayHandler::difference()
+        std::vector<bool> libdsa::structures::BitArrayHandler::difference()
         {
             std::vector<bool> result;
 
@@ -105,7 +105,7 @@ namespace libdsa
             return result;
         }
 
-        std::vector<bool> libdsa::libstructures::BitArrayHandler::AND()
+        std::vector<bool> libdsa::structures::BitArrayHandler::AND()
         {
             std::vector<bool> result;
 
@@ -117,17 +117,17 @@ namespace libdsa
             return result;
         }
 
-        std::vector<bool> libdsa::libstructures::BitArrayHandler::getSet1()
+        std::vector<bool> libdsa::structures::BitArrayHandler::getSet1()
         {
             return _set1;
         }
 
-        std::vector<bool> libdsa::libstructures::BitArrayHandler::getSet2()
+        std::vector<bool> libdsa::structures::BitArrayHandler::getSet2()
         {
             return _set2;
         }
 
-        void libdsa::libstructures::BitArrayHandler::NOT(bool set1)
+        void libdsa::structures::BitArrayHandler::NOT(bool set1)
         {
             for (size_t i = 0; i < _set1.size(); ++i)
             {
@@ -142,7 +142,7 @@ namespace libdsa
             }
         }
 
-        std::vector<bool> libdsa::libstructures::BitArrayHandler::OR()
+        std::vector<bool> libdsa::structures::BitArrayHandler::OR()
         {
             std::vector<bool> result;
 
@@ -154,7 +154,7 @@ namespace libdsa
             return result;
         }
 
-        void libdsa::libstructures::BitArrayHandler::setSet1(std::vector<bool> &set)
+        void libdsa::structures::BitArrayHandler::setSet1(std::vector<bool> &set)
         {
             if (set.size() == _size)
             {
@@ -166,7 +166,7 @@ namespace libdsa
             }
         }
 
-        void libdsa::libstructures::BitArrayHandler::setSet2(std::vector<bool> &set)
+        void libdsa::structures::BitArrayHandler::setSet2(std::vector<bool> &set)
         {
             if (set.size() == _size)
             {
@@ -178,7 +178,7 @@ namespace libdsa
             }
         }
 
-        std::vector<bool> libdsa::libstructures::BitArrayHandler::XOR()
+        std::vector<bool> libdsa::structures::BitArrayHandler::XOR()
         {
             std::vector<bool> result;
 

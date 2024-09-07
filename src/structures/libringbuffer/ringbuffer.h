@@ -13,7 +13,7 @@
 
 namespace libdsa
 {
-    namespace libstructures
+    namespace structures
     {
         /// @brief Declaration and implementation of the @c RingBuffer class.  A ring buffer is a type of array
         ///        that loops back to the beginning index when the end index is reached during a write or read
@@ -82,7 +82,7 @@ namespace libdsa
         }; // End RingBuffer
 
         template <typename T>
-        libdsa::libstructures::RingBuffer<T>::RingBuffer(size_t length) : _length(length)
+        libdsa::structures::RingBuffer<T>::RingBuffer(size_t length) : _length(length)
         {
             std::random_device device;
             std::mt19937 rng(device());
@@ -96,7 +96,7 @@ namespace libdsa
 
         template <typename T>
         template <typename K>
-        void libdsa::libstructures::RingBuffer<T>::checkType(K data)
+        void libdsa::structures::RingBuffer<T>::checkType(K data)
         {
             if constexpr (!std::is_same_v<T, K>)
             {
@@ -105,7 +105,7 @@ namespace libdsa
         }
 
         template <typename T>
-        T libdsa::libstructures::RingBuffer<T>::read()
+        T libdsa::structures::RingBuffer<T>::read()
         {
             // If we reach the end index of the buffer, loop back to the beginning.
             if (this->_readIndex == this->_length - 1)
@@ -123,7 +123,7 @@ namespace libdsa
 
         template <typename T>
         template <typename K>
-        void libdsa::libstructures::RingBuffer<T>::write(K data)
+        void libdsa::structures::RingBuffer<T>::write(K data)
         {
             checkType(data);
             // If we reach the end of the buffer, write to the final index and loop back to the beginning.
@@ -142,25 +142,25 @@ namespace libdsa
 
 #ifdef TESTS
         template <typename T>
-        uint16_t libdsa::libstructures::RingBuffer<T>::getReadIndex()
+        uint16_t libdsa::structures::RingBuffer<T>::getReadIndex()
         {
             return this->_readIndex;
         }
 
         template <typename T>
-        uint16_t libdsa::libstructures::RingBuffer<T>::getWriteIndex()
+        uint16_t libdsa::structures::RingBuffer<T>::getWriteIndex()
         {
             return this->_writeIndex;
         }
 
         template <typename T>
-        size_t libdsa::libstructures::RingBuffer<T>::size()
+        size_t libdsa::structures::RingBuffer<T>::size()
         {
             return this->_length;
         }
 #endif // TESTS
 
-    } // libstructures
+    } // structures
 } // libdsa
 
 #endif // RINGBUFFER_H_

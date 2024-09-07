@@ -12,7 +12,7 @@
 
 namespace libdsa
 {
-    namespace libstructures
+    namespace structures
     {
         /// @brief Declaration and implementation of the @c Stack class.
         ///
@@ -57,20 +57,20 @@ namespace libdsa
         }; // Stack
 
         template <typename T>
-        libdsa::libstructures::Stack<T>::Stack(size_t size) : _size(size)
+        libdsa::structures::Stack<T>::Stack(size_t size) : _size(size)
         {
             this->_sp = -1;
             this->_stack = new T[this->_size];
         }
 
         template <typename T>
-        libdsa::libstructures::Stack<T>::~Stack()
+        libdsa::structures::Stack<T>::~Stack()
         {
             delete[] _stack;
         }
 
         template <typename T>
-        T libdsa::libstructures::Stack<T>::pop()
+        T libdsa::structures::Stack<T>::pop()
         {
             if (this->_sp == -1)
             {
@@ -81,7 +81,7 @@ namespace libdsa
         }
 
         template <typename T>
-        void libdsa::libstructures::Stack<T>::push(T element)
+        void libdsa::structures::Stack<T>::push(T element)
         {
             // Subtract 1 from size to avoid off by one error
             if (this->_sp < static_cast<int>(this->_size - 1))
@@ -91,7 +91,7 @@ namespace libdsa
         }
 
         template <typename T>
-        bool libdsa::libstructures::Stack<T>::empty()
+        bool libdsa::structures::Stack<T>::empty()
         {
             if (this->_sp == -1)
             {
@@ -102,12 +102,12 @@ namespace libdsa
 
 #ifdef TESTS
         template <typename T>
-        size_t libdsa::libstructures::Stack<T>::getSize()
+        size_t libdsa::structures::Stack<T>::getSize()
         {
             return this->_size;
         }
 #endif
-    } // libstructures
+    } // structures
 } // libdsa
 
 #endif // STACK_H_

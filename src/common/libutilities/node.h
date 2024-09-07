@@ -11,36 +11,39 @@
 
 namespace libdsa
 {
-    namespace libstructures
+    namespace structures
     {
-        template <typename T>
-        struct Node
+        namespace utilities
         {
-            Node *_next;
-            Node *_prev;
-            T _datum;
-
-            Node(T datum)
-                : _next(nullptr), _prev(nullptr), _datum(datum)
+            template <typename T>
+            struct Node
             {
-                // Intentionally empty constructor.
-            }
-        }; // Node
+                Node *_next;
+                Node *_prev;
+                T _datum;
+
+                Node(T datum)
+                    : _next(nullptr), _prev(nullptr), _datum(datum)
+                {
+                    // Intentionally empty constructor.
+                }
+            }; // Node
 
 
-        template <typename type>
-        struct TreeNode
-        {
-            std::vector<TreeNode*> children;
-            type _datum;
-
-            TreeNode(type datum) : _datum(datum)
+            template <typename type>
+            struct TreeNode
             {
-                // Intentionally empty constructor
-            }
-        }; // TreeNode
+                std::vector<TreeNode*> children;
+                type _datum;
 
-    } // libstructures
+                TreeNode(type datum) : _datum(datum)
+                {
+                    // Intentionally empty constructor
+                }
+            }; // TreeNode
+        }
+
+    } // structures
 } // libdsa
 
 #endif // NODE_H_

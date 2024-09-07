@@ -14,7 +14,7 @@ TEST(BitArray, testConstructorValidSize)
     std::vector<bool> s1{false, false, true, true};
     std::vector<bool> s2{true, false, true, true};
 
-    libdsa::libstructures::BitArrayHandler bitArray = libdsa::libstructures::BitArrayHandler(s1, s2);
+    libdsa::structures::BitArrayHandler bitArray = libdsa::structures::BitArrayHandler(s1, s2);
     ASSERT_EQ(s1, bitArray.getSet1());
     ASSERT_EQ(s2, bitArray.getSet2());
 }
@@ -24,7 +24,7 @@ TEST(BitArray, testConstructorInvalidSize)
     std::vector<bool> s1{false, false, true};
     std::vector<bool> s2{true, false};
 
-    ASSERT_THROW(libdsa::libstructures::BitArrayHandler bitArray(s1, s2), std::runtime_error);
+    ASSERT_THROW(libdsa::structures::BitArrayHandler bitArray(s1, s2), std::runtime_error);
 }
 
 TEST(BitArray, testAND_Operation)
@@ -34,7 +34,7 @@ TEST(BitArray, testAND_Operation)
     // Binary: 110
     std::vector<bool> s2{true, true, false};
 
-    libdsa::libstructures::BitArrayHandler bitArray(s1, s2);
+    libdsa::structures::BitArrayHandler bitArray(s1, s2);
 
     // Expected Binary result: 100
     std::vector<bool> result = bitArray.AND();
@@ -51,7 +51,7 @@ TEST(BitArray, testOR_Operation)
     // Binary: 110
     std::vector<bool> s2{true, true, false};
 
-    libdsa::libstructures::BitArrayHandler handler(s1, s2);
+    libdsa::structures::BitArrayHandler handler(s1, s2);
 
     // Expected Binary result: 111
     std::vector<bool> result = handler.OR();
@@ -68,7 +68,7 @@ TEST(BitArray, testXOR_Operation)
     // Binary: 110
     std::vector<bool> s2{true, true, false};
 
-    libdsa::libstructures::BitArrayHandler handler(s1, s2);
+    libdsa::structures::BitArrayHandler handler(s1, s2);
 
     // Expected Binary Result: 011
     std::vector<bool> result = handler.XOR();
@@ -85,7 +85,7 @@ TEST(BitArray, testNOT_Operation)
     // Binary: 110
     std::vector<bool> s2{true, true, false};
 
-    libdsa::libstructures::BitArrayHandler handler(s1, s2);
+    libdsa::structures::BitArrayHandler handler(s1, s2);
 
     // Expected Binary Result 1: 010
     handler.NOT(true);
@@ -105,7 +105,7 @@ TEST(BitArray, testDifferenceOperation)
     // Binary: 110
     std::vector<bool> s2{true, true, false};
 
-    libdsa::libstructures::BitArrayHandler handler(s1, s2);
+    libdsa::structures::BitArrayHandler handler(s1, s2);
 
     // Expected Binary result: 001
     std::vector<bool> actual{false, false, true};

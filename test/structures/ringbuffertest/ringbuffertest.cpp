@@ -15,7 +15,7 @@ std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
 /// @brief Test the constructor builds a valid buffer to the expected size.
 TEST(RingBuffer, testConstructor)
 {
-    libdsa::libstructures::RingBuffer<uint8_t> ringBuffer(data.size());
+    libdsa::structures::RingBuffer<uint8_t> ringBuffer(data.size());
 
     ASSERT_EQ(ringBuffer.size(), data.size());
 }
@@ -23,7 +23,7 @@ TEST(RingBuffer, testConstructor)
 /// @brief Test we can make valid writes and reads to and from a buffer that's not full.
 TEST(RingBuffer, testWriteReadValidDataBelowFullBuffer)
 {
-    libdsa::libstructures::RingBuffer<uint8_t> ringBuffer(data.size());
+    libdsa::structures::RingBuffer<uint8_t> ringBuffer(data.size());
 
     ASSERT_EQ(ringBuffer.size(), data.size());
 
@@ -56,7 +56,7 @@ TEST(RingBuffer, testWriteReadValidDataBelowFullBuffer)
 ///        starting index.
 TEST(RingBuffer, testWriteReadValidDataFullBuffer)
 {
-    libdsa::libstructures::RingBuffer<uint8_t> ringBuffer(data.size());
+    libdsa::structures::RingBuffer<uint8_t> ringBuffer(data.size());
     ASSERT_EQ(ringBuffer.size(), data.size());
     size_t startIndex = ringBuffer.getReadIndex();
 
@@ -96,7 +96,7 @@ TEST(RingBuffer, testWriteReadValidDataFullBuffer)
 ///        of the Ring Buffer.
 TEST(RingBuffer, testWriteInvalidType)
 {
-    libdsa::libstructures::RingBuffer<uint8_t> ringBuffer(data.size());
+    libdsa::structures::RingBuffer<uint8_t> ringBuffer(data.size());
     ASSERT_EQ(ringBuffer.size(), data.size());
 
     int instance = 4;
@@ -106,7 +106,7 @@ TEST(RingBuffer, testWriteInvalidType)
 /// @brief Continue writing even after the Ring Buffer has been completely filled.
 TEST(RingBuffer, testOverwriteExistingData)
 {
-    libdsa::libstructures::RingBuffer<uint8_t> ringBuffer(data.size());
+    libdsa::structures::RingBuffer<uint8_t> ringBuffer(data.size());
     ASSERT_EQ(ringBuffer.size(), data.size());
 
     for (size_t i = 0; i < data.size(); ++i)
@@ -128,7 +128,7 @@ TEST(RingBuffer, testOverwriteExistingData)
 ///       why you would want to do this, but the theory of ring buffers doesn't say this isn't allowed.
 TEST(RingBuffer, testAttemptedReadPastWriteIndex)
 {
-    libdsa::libstructures::RingBuffer<uint8_t> ringBuffer(data.size());
+    libdsa::structures::RingBuffer<uint8_t> ringBuffer(data.size());
     ASSERT_EQ(ringBuffer.size(), data.size());
 
     for (size_t i = 0; i < data.size(); ++i)

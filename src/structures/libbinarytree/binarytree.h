@@ -63,7 +63,7 @@ namespace libdsa
                     void _checkTypeCompatability(Subtype);
 
                     /// @brief Top most node in the Binary Tree.
-                    libdsa::libstructures::TreeNode<Type> *_head;
+                    libdsa::structures::utilities::TreeNode<Type> *_head;
 
                     /// @brief Number of nodes within the Binary Tree.
                     size_t _size;
@@ -88,7 +88,7 @@ namespace libdsa
                 {
                     if (i == 0)
                     {
-                        this->_head = new libdsa::libstructures::TreeNode<Type>(container[i]);
+                        this->_head = new libdsa::structures::utilities::TreeNode<Type>(container[i]);
                     }
                     else
                     {
@@ -109,7 +109,7 @@ namespace libdsa
                 {
                     if (i == 0)
                     {
-                        this->_head = new libdsa::libstructures::TreeNode<Type>(container[i]);
+                        this->_head = new libdsa::structures::utilities::TreeNode<Type>(container[i]);
                     }
                 }
             }

@@ -9,12 +9,12 @@
 // From C++ STL
 #include <iostream>
 
-// From libstructures
+// From structures
 #include <node.h>
 
 namespace libdsa
 {
-    namespace libstructures
+    namespace structures
     {
         /// @brief Class implementation of a @c LinkedList class.
         template <typename T>
@@ -60,7 +60,7 @@ namespace libdsa
             void insert(K datum, size_t idx);
 
             /// @brief Returns the underlying head of the list.
-            libdsa::libstructures::Node<T> *getHead();
+            libdsa::structures::utilities::Node<T> *getHead();
 
             /// @brief Get the size of the Linked List.
             ///
@@ -87,7 +87,7 @@ namespace libdsa
             void checkType(K datum);
 
             /// @brief Underlying head node of the Linked List.
-            libdsa::libstructures::Node<T> *_head = nullptr;
+            libdsa::structures::utilities::Node<T> *_head = nullptr;
 
             /// @brief Number of nodes within the list.
             size_t _size = 0;
@@ -95,7 +95,7 @@ namespace libdsa
 
         template <typename T>
         template <typename K>
-        void libdsa::libstructures::LinkedList<T>::append(K datum)
+        void libdsa::structures::LinkedList<T>::append(K datum)
         {
             // Confirm the template types are the same.
             checkType(datum);
@@ -105,7 +105,7 @@ namespace libdsa
             {
                 try
                 {
-                    _head = new libdsa::libstructures::Node<T>(datum);
+                    _head = new libdsa::structures::utilities::Node<T>(datum);
                     _head->_next = _head;
                     _head->_prev = _head;
                 }
@@ -119,10 +119,10 @@ namespace libdsa
                 try
                 {
                     // Get the last node of the linked list
-                    libdsa::libstructures::Node<T> *lastNode = _head->_prev;
+                    libdsa::structures::utilities::Node<T> *lastNode = _head->_prev;
 
                     // Create the new node
-                    libdsa::libstructures::Node<T> *newNode = new libdsa::libstructures::Node<T>(datum);
+                    libdsa::structures::utilities::Node<T> *newNode = new libdsa::structures::utilities::Node<T>(datum);
 
                     // Append the new node to the end of the list.
                     newNode->_next = _head;
@@ -144,15 +144,15 @@ namespace libdsa
         }
 
         template <typename T>
-        libdsa::libstructures::Node<T> *libdsa::libstructures::LinkedList<T>::getHead()
+        libdsa::structures::utilities::Node<T> *libdsa::structures::LinkedList<T>::getHead()
         {
             return this->_head;
         }
 
         template <typename T>
-        void libdsa::libstructures::LinkedList<T>::print()
+        void libdsa::structures::LinkedList<T>::print()
         {
-            libdsa::libstructures::Node<T> *current = _head;
+            libdsa::structures::utilities::Node<T> *current = _head;
 
             size_t i = 0;
             while (i < _size)
@@ -165,15 +165,15 @@ namespace libdsa
         }
 
         template <typename T>
-        size_t libdsa::libstructures::LinkedList<T>::getSize()
+        size_t libdsa::structures::LinkedList<T>::getSize()
         {
             return _size;
         }
 
         template <typename T>
-        void libdsa::libstructures::LinkedList<T>::removeByIndex(size_t idx)
+        void libdsa::structures::LinkedList<T>::removeByIndex(size_t idx)
         {
-            libdsa::libstructures::Node<T> *current = _head;
+            libdsa::structures::utilities::Node<T> *current = _head;
 
             // Check that the index is within bounds.
             if (idx > _size || idx < 0)
@@ -206,11 +206,11 @@ namespace libdsa
 
         template <typename T>
         template <typename K>
-        void libdsa::libstructures::LinkedList<T>::removeByData(K datum)
+        void libdsa::structures::LinkedList<T>::removeByData(K datum)
         {
             checkType(datum);
 
-            libdsa::libstructures::Node<T> *current = _head;
+            libdsa::structures::utilities::Node<T> *current = _head;
 
             while (datum != current->_datum && current->_next != _head)
             {
@@ -237,7 +237,7 @@ namespace libdsa
 
         template <typename T>
         template <typename K>
-        void libdsa::libstructures::LinkedList<T>::insert(K datum, size_t idx)
+        void libdsa::structures::LinkedList<T>::insert(K datum, size_t idx)
         {
             checkType(datum);
 
@@ -247,7 +247,7 @@ namespace libdsa
             }
             else
             {
-                libdsa::libstructures::Node<T> *current = _head;
+                libdsa::structures::utilities::Node<T> *current = _head;
                 size_t i = 0;
 
                 while (i != idx)
@@ -256,7 +256,7 @@ namespace libdsa
                     ++i;
                 }
 
-                libdsa::libstructures::Node<T> *node = new libdsa::libstructures::Node<T>(datum);
+                libdsa::structures::utilities::Node<T> *node = new libdsa::structures::utilities::Node<T>(datum);
 
                 node->_next = current;
                 node->_prev = current->_prev;
@@ -269,14 +269,14 @@ namespace libdsa
         }
 
         template <typename T>
-        T libdsa::libstructures::LinkedList<T>::operator[](const size_t idx) const
+        T libdsa::structures::LinkedList<T>::operator[](const size_t idx) const
         {
             if (this->_size <= idx || idx < 0)
             {
                 throw std::runtime_error("Class LinkedList - Index requested is out of bounds for current container.");
             }
             
-            Node<T> *current = this->_head;
+            utilities::Node<T> *current = this->_head;
 
             for (size_t i = 0; i < idx; ++i)
             {
@@ -288,14 +288,14 @@ namespace libdsa
 
         template <typename T>
         template <typename K>
-        bool libdsa::libstructures::LinkedList<T>::exists(const K item)
+        bool libdsa::structures::LinkedList<T>::exists(const K item)
         {
             checkType(item);
 
             // Declare forward and backward search pointers.
-            Node<T> *forward = this->_head;
+            utilities::Node<T> *forward = this->_head;
             size_t forwardIdx = 0;
-            Node<T> *backward = this->_head;
+            utilities::Node<T> *backward = this->_head;
             size_t backwardIdx = this->getSize();
 
             bool found = false;
@@ -324,14 +324,14 @@ namespace libdsa
 
         template <typename T>
         template <typename K>
-        void libdsa::libstructures::LinkedList<T>::checkType(K datum)
+        void libdsa::structures::LinkedList<T>::checkType(K datum)
         {
             if constexpr (!std::is_same_v<T, K>)
             {
                 throw std::runtime_error("Invalid type passed into Linked List.");
             }
         }
-    } // libstructures
+    } // structures
 } // libdsa
 
 #endif // LINKEDLIST_H_

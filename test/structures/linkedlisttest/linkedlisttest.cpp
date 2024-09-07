@@ -15,9 +15,9 @@
 /// @brief Reusable setup function for a LinkedList tests.
 /// @param data Container of data to build the linked list with.
 /// @return A fully built Linked List instance containing data.
-libdsa::libstructures::LinkedList<uint8_t> setup(std::vector<uint8_t> &data)
+libdsa::structures::LinkedList<uint8_t> setup(std::vector<uint8_t> &data)
 {
-    libdsa::libstructures::LinkedList<uint8_t> list;
+    libdsa::structures::LinkedList<uint8_t> list;
 
     for (size_t i = 0; i < data.size(); ++i)
     {
@@ -32,14 +32,14 @@ TEST(LinkedList, testValidAppend)
 {
     std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
 
-    libdsa::libstructures::LinkedList<uint8_t> list;
+    libdsa::structures::LinkedList<uint8_t> list;
 
     for (size_t i = 0; i < data.size(); ++i)
     {
         list.append(data[i]);
     }
 
-    libdsa::libstructures::Node<uint8_t> *head = list.getHead();
+    libdsa::structures::utilities::Node<uint8_t> *head = list.getHead();
 
     ASSERT_EQ(data.size(), list.getSize());
 
@@ -54,7 +54,7 @@ TEST(LinkedList, testValidAppend)
 TEST(LinkedList, testInvalidAppend)
 {
     std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
-    libdsa::libstructures::LinkedList<uint8_t> list = setup(data);
+    libdsa::structures::LinkedList<uint8_t> list = setup(data);
 
     float temp = 23.22;
     bool temp2 = false;
@@ -69,7 +69,7 @@ TEST(LinkedList, testInvalidAppend)
 TEST(LinkedList, testValidIndexRetrieval)
 {
     std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
-    libdsa::libstructures::LinkedList<uint8_t> list = setup(data);
+    libdsa::structures::LinkedList<uint8_t> list = setup(data);
 
     ASSERT_EQ('C', list[0]);
     ASSERT_EQ('O', list[1]);
@@ -81,7 +81,7 @@ TEST(LinkedList, testValidIndexRetrieval)
 TEST(LinkedList, testOutOfBoundsIndexRetrieval)
 {
     std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
-    libdsa::libstructures::LinkedList<uint8_t> list = setup(data);
+    libdsa::structures::LinkedList<uint8_t> list = setup(data);
 
     ASSERT_THROW(list[4], std::runtime_error);
 }
@@ -90,7 +90,7 @@ TEST(LinkedList, testOutOfBoundsIndexRetrieval)
 TEST(LinkedList, testValidRemoveByIndex)
 {
     std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
-    libdsa::libstructures::LinkedList<uint8_t> list = setup(data);
+    libdsa::structures::LinkedList<uint8_t> list = setup(data);
 
     size_t idx = 2;
     list.removeByIndex(idx);
@@ -102,7 +102,7 @@ TEST(LinkedList, testValidRemoveByIndex)
 TEST(LinkedList, testInvalidRemoveByIndex)
 {
     std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
-    libdsa::libstructures::LinkedList<uint8_t> list = setup(data);
+    libdsa::structures::LinkedList<uint8_t> list = setup(data);
 
     size_t idx = 5;
     ASSERT_THROW(list.removeByIndex(idx), std::runtime_error);
@@ -112,7 +112,7 @@ TEST(LinkedList, testInvalidRemoveByIndex)
 TEST(LinkedList, testValidRemoveByData)
 {
     std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
-    libdsa::libstructures::LinkedList<uint8_t> list = setup(data);
+    libdsa::structures::LinkedList<uint8_t> list = setup(data);
 
     uint8_t datum = 'O';
 
@@ -126,7 +126,7 @@ TEST(LinkedList, testValidRemoveByData)
 TEST(LinkedList, testInvalidRemoveByData)
 {
     std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
-    libdsa::libstructures::LinkedList<uint8_t> list = setup(data);
+    libdsa::structures::LinkedList<uint8_t> list = setup(data);
 
     uint8_t datum = 'K';
 
@@ -139,7 +139,7 @@ TEST(LinkedList, testInvalidRemoveByData)
 TEST(LinkedList, testValidInsert)
 {
     std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
-    libdsa::libstructures::LinkedList<uint8_t> list = setup(data);
+    libdsa::structures::LinkedList<uint8_t> list = setup(data);
 
     uint8_t datum = '4';
 
@@ -152,7 +152,7 @@ TEST(LinkedList, testValidInsert)
 TEST(LinkedList, testInvalidInsert)
 {
     std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
-    libdsa::libstructures::LinkedList<uint8_t> list = setup(data);
+    libdsa::structures::LinkedList<uint8_t> list = setup(data);
 
     uint8_t datum = '5';
     ASSERT_THROW(list.insert(datum, 6), std::runtime_error);
@@ -162,7 +162,7 @@ TEST(LinkedList, testInvalidInsert)
 TEST(LinkedList, testInvalidTypeInsert)
 {
     std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
-    libdsa::libstructures::LinkedList<uint8_t> list = setup(data);
+    libdsa::structures::LinkedList<uint8_t> list = setup(data);
 
     int datum = 32;
 
@@ -172,7 +172,7 @@ TEST(LinkedList, testInvalidTypeInsert)
 TEST(LinkedList, testFindInvalidType)
 {
     std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
-    libdsa::libstructures::LinkedList<uint8_t> list = setup(data);
+    libdsa::structures::LinkedList<uint8_t> list = setup(data);
 
     int datum = 32;
 
@@ -182,7 +182,7 @@ TEST(LinkedList, testFindInvalidType)
 TEST(LinkedList, testFindValidTypeMiddle)
 {
     std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
-    libdsa::libstructures::LinkedList<uint8_t> list = setup(data);
+    libdsa::structures::LinkedList<uint8_t> list = setup(data);
 
     uint8_t datum = 'D';
 
@@ -192,7 +192,7 @@ TEST(LinkedList, testFindValidTypeMiddle)
 TEST(LinkedList, testFindValidTypeStart)
 {
     std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
-    libdsa::libstructures::LinkedList<uint8_t> list = setup(data);
+    libdsa::structures::LinkedList<uint8_t> list = setup(data);
 
     uint8_t datum = 'C';
 
@@ -202,7 +202,7 @@ TEST(LinkedList, testFindValidTypeStart)
 TEST(LinkedList, testFindValidTypeEnd)
 {
     std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
-    libdsa::libstructures::LinkedList<uint8_t> list = setup(data);
+    libdsa::structures::LinkedList<uint8_t> list = setup(data);
 
     uint8_t datum = 'E';
 
@@ -212,7 +212,7 @@ TEST(LinkedList, testFindValidTypeEnd)
 TEST(LinkedList, testFindValidTypeFailure)
 {
     std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
-    libdsa::libstructures::LinkedList<uint8_t> list = setup(data);
+    libdsa::structures::LinkedList<uint8_t> list = setup(data);
 
     uint8_t datum = 'K';
 
@@ -221,7 +221,7 @@ TEST(LinkedList, testFindValidTypeFailure)
 
 TEST(LinkedList, testFindValidTypeSuccessWithLargeList)
 {
-    libdsa::libstructures::LinkedList<int> list;
+    libdsa::structures::LinkedList<int> list;
     std::default_random_engine generator;
     std::uniform_int_distribution<int> distribution(1, 100);
     int number = 0;

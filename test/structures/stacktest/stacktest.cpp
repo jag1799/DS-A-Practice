@@ -14,7 +14,7 @@
 TEST(Stack, testConstructor)
 {
     std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
-    libdsa::libstructures::Stack<uint8_t> stack(data.size());
+    libdsa::structures::Stack<uint8_t> stack(data.size());
 
     ASSERT_EQ(data.size(), stack.getSize());
 }
@@ -23,7 +23,7 @@ TEST(Stack, testConstructor)
 TEST(Stack, testPushPull)
 {
     std::vector<uint8_t> data = {'C', 'O', 'D', 'E'};
-    libdsa::libstructures::Stack<uint8_t> stack(data.size());
+    libdsa::structures::Stack<uint8_t> stack(data.size());
 
     for (size_t i = 0; i < data.size(); ++i)
     {
@@ -39,13 +39,13 @@ TEST(Stack, testPushPull)
 /// @brief Test if the stack will pop when nothing is inside it.
 TEST(Stack, testEmptyPop)
 {
-    libdsa::libstructures::Stack<uint8_t> stack(3);
+    libdsa::structures::Stack<uint8_t> stack(3);
 
     ASSERT_TRUE(stack.empty());
 
     ASSERT_EQ(0, stack.pop());
 
-    libdsa::libstructures::Stack<std::string> stack2(5);
+    libdsa::structures::Stack<std::string> stack2(5);
 
     ASSERT_TRUE(stack2.empty());
 
@@ -56,7 +56,7 @@ TEST(Stack, testEmptyPop)
 TEST(Stack, testPushWhenFull)
 {
     std::vector<uint8_t> data{'K', 'N', 'K', 'F'};
-    libdsa::libstructures::Stack<uint8_t> stack(3);
+    libdsa::structures::Stack<uint8_t> stack(3);
 
     for (size_t i = 0; i < data.size(); ++i)
     {
@@ -69,7 +69,7 @@ TEST(Stack, testPushWhenFull)
 /// @brief Test if the stack is actually empty upon creation.
 TEST(Stack, testEmpty)
 {
-    libdsa::libstructures::Stack<uint8_t> stack(5);
+    libdsa::structures::Stack<uint8_t> stack(5);
 
     ASSERT_EQ(true, stack.empty());
 }
