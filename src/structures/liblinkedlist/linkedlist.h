@@ -80,6 +80,8 @@ namespace libdsa
         private:
             /// @brief Checks the type of the Linked List and type of the datum being inserted.
             ///
+            /// @param datum A data instance we want to compare with the type of the List for compatability.
+            ///
             /// @throw runtime_error if types T and K are different.
             template <typename K>
             void checkType(K datum);

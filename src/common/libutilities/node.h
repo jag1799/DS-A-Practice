@@ -1,10 +1,13 @@
 /// @author [Software Engineer]
-/// @date [2023]
+/// @date [2023,2024]
 /// @file node
 /// @{
 
 #ifndef NODE_H_
 #define NODE_H_
+
+// From C++ STL
+#include <vector>
 
 namespace libdsa
 {
@@ -23,6 +26,19 @@ namespace libdsa
                 // Intentionally empty constructor.
             }
         }; // Node
+
+
+        template <typename type>
+        struct TreeNode
+        {
+            std::vector<TreeNode*> children;
+            type _datum;
+
+            TreeNode(type datum) : _datum(datum)
+            {
+                // Intentionally empty constructor
+            }
+        }; // TreeNode
 
     } // libstructures
 } // libdsa

@@ -15,16 +15,17 @@ FetchContent_MakeAvailable(googletest)
 add_library(GTest::GTest INTERFACE IMPORTED)
 target_link_libraries(GTest::GTest INTERFACE gtest_main)
 
-add_executable(libdsa_test 
+add_executable(libdsa_structures_test
                     driver.cpp
-                    bitarraytest/bitarraytest.cpp
-                    linkedlisttest/linkedlisttest.cpp
-                    ringbuffertest/ringbuffertest.cpp
-                    stacktest/stacktest.cpp)
+                    structures/binarytreetest/binarytreetest.cpp
+                    structures/bitarraytest/bitarraytest.cpp
+                    structures/linkedlisttest/linkedlisttest.cpp
+                    structures/ringbuffertest/ringbuffertest.cpp
+                    structures/stacktest/stacktest.cpp)
 
-target_link_libraries(libdsa_test
+target_link_libraries(libdsa_structures_test
     PRIVATE
     GTest::GTest
     libdsa)
 
-add_test(libdsa_gtests libdsa_test)
+add_test(libdsa_structures_gtest libdsa_structures_test)
