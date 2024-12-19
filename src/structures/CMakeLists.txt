@@ -6,4 +6,5 @@ target_include_directories(libdsa INTERFACE
                             libbitarray
                             liblinkedlist
                             libstack
-                            libringbuffer)
+                            libringbuffer
+                            libtransport)

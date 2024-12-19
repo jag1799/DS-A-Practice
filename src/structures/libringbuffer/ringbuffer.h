@@ -19,6 +19,8 @@ namespace libdsa
         ///        that loops back to the beginning index when the end index is reached during a write or read
         ///        operation.
         ///
+        /// @note The RNG for the selection of the index requires C++17 or greater.
+        ///
         /// @tparam T Templated parameter that allows the ring buffer to be used with any data type.
         template <typename T>
         class RingBuffer

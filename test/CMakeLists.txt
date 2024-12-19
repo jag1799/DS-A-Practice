@@ -21,7 +21,8 @@ add_executable(libdsa_structures_test
                     structures/bitarraytest/bitarraytest.cpp
                     structures/linkedlisttest/linkedlisttest.cpp
                     structures/ringbuffertest/ringbuffertest.cpp
-                    structures/stacktest/stacktest.cpp)
+                    structures/stacktest/stacktest.cpp
+                    structures/transporttest/transporttest.cpp)
 
 target_link_libraries(libdsa_structures_test
     PRIVATE
